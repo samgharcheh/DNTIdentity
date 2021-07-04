@@ -1,5 +1,4 @@
-﻿using ASPNETCoreIdentitySample.Common.GuardToolkit;
-using ASPNETCoreIdentitySample.Common.IdentityToolkit;
+﻿using ASPNETCoreIdentitySample.Common.IdentityToolkit;
 using ASPNETCoreIdentitySample.Entities.Identity;
 using ASPNETCoreIdentitySample.Services.Contracts.Identity;
 using ASPNETCoreIdentitySample.ViewModels.Identity.Emails;
@@ -37,23 +36,12 @@ namespace ASPNETCoreIdentitySample.Areas.Identity.Controllers
             IUsedPasswordsService usedPasswordsService,
             IOptionsSnapshot<SiteSettings> siteOptions)
         {
-            _userManager = userManager;
-            _userManager.CheckArgumentIsNull(nameof(_userManager));
-
-            _signInManager = signInManager;
-            _signInManager.CheckArgumentIsNull(nameof(_signInManager));
-
-            _passwordValidator = passwordValidator;
-            _passwordValidator.CheckArgumentIsNull(nameof(_passwordValidator));
-
-            _usedPasswordsService = usedPasswordsService;
-            _usedPasswordsService.CheckArgumentIsNull(nameof(_usedPasswordsService));
-
-            _emailSender = emailSender;
-            _emailSender.CheckArgumentIsNull(nameof(_emailSender));
-
-            _siteOptions = siteOptions;
-            _siteOptions.CheckArgumentIsNull(nameof(_siteOptions));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
+            _passwordValidator = passwordValidator ?? throw new ArgumentNullException(nameof(passwordValidator));
+            _usedPasswordsService = usedPasswordsService ?? throw new ArgumentNullException(nameof(usedPasswordsService));
+            _emailSender = emailSender ?? throw new ArgumentNullException(nameof(emailSender));
+            _siteOptions = siteOptions ?? throw new ArgumentNullException(nameof(siteOptions));
         }
 
         [BreadCrumb(Title = "ایندکس", Order = 1)]
